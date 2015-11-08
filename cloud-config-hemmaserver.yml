@@ -1,0 +1,26 @@
+#
+# cloud-config.yml for hemmaserver
+#
+
+hostname: hemmaserver
+
+coreos:  
+  etcd:    
+    addr: $private_ipv4:4001
+    peer-addr: $private_ipv4:7001
+  units:
+    - name: etcd.service
+      command: start
+    - name: fleet.service
+      command: start
+
+users:  
+  - name: degen
+    ssh-authorized-keys: 
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCypkrkZIMTnKvsvTReCyyZ6EHV9H1jTrG3/Zie5utmN2dHnz1ij7cJrs10zLxT8aVqjLHOICO7SOPgMVgIuXsJK5Kd8F2nV0YCuZi7JIDC6U4GethBLG3SPA9I7dWdxFDZpUQQG4ceFiN2ktz+AeQJKi3pzqY4xx2R8Vd62lW4gIvLlUCnXxVcdmXWOqy2YmPkkVRdF1k8AonI6TLYYoc7r71eZP4w/e3CP7Cqzf0PafyNnBpFDE6cpit7rzEE2GMuM//YVVtbAbPIr+A806rda9z+6h22T2QlsmizcmdpejtQTbE3wX31mZ9gCBLeLu+Mdr0fBzPaIzaPZo3tvS2H degerman@degerman-bärbar
+
+  - groups:
+      - sudo
+      - docker
+
+# EOF
